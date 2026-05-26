@@ -1,0 +1,110 @@
+{
+  "info": {
+    "_postman_id": "917f7386-2433-4b2b-942f-0432f454bce8",
+    "name": "Travel-app",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52683547",
+    "_collection_link": "https://go.postman.co/collection/52683547-917f7386-2433-4b2b-942f-0432f454bce8?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "server health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{server}}/api/health",
+          "host": [
+            "{{server}}"
+          ],
+          "path": [
+            "api",
+            "health"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "intent",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"text\":\"I want to book a flight from Lahore to Singapore on next monday\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{server}}/api/intent",
+          "host": [
+            "{{server}}"
+          ],
+          "path": [
+            "api",
+            "intent"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"destination\": \"Singapore, Singapore\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{server}}/api/search",
+          "host": [
+            "{{server}}"
+          ],
+          "path": [
+            "api",
+            "search"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "approvalandemail",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n \"destination\": \"Berlin, Germany\",\r\n \"dateFrom\": \"2026-05-28\",\r\n \"dateTo\": \"2026-05-29\",\r\n \"purpose\": \"Client Meeting\",\r\n \"flightInfo\": \"Lufthansa LH203\",\r\n \"hotelInfo\": \"Hilton Berlin\",\r\n \"totalCost\": 487,\r\n \"notes\": \"Need manager approval\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{server}}/api/approval",
+          "host": [
+            "{{server}}"
+          ],
+          "path": [
+            "api",
+            "approval"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
