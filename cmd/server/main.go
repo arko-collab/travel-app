@@ -13,6 +13,7 @@ import (
 	"github.com/travel-api/build/internal/config"
 	"github.com/travel-api/build/internal/intent"
 	"github.com/travel-api/build/internal/middleware"
+	"github.com/travel-api/build/internal/search"
 )
 
 func main() {
@@ -21,11 +22,14 @@ func main() {
 		log.Fatalf("failed to load config:%v",err)
 	}
 
-	// need to setup database here but will do taler
+	// need to setup database here but will do later when we have some data to persist
 
 
 	intentSvc := intent.NewService(cfg.GeminiAPIKey)
 	intentHandler := intent.NewHandler(intentSvc)
+
+	searchSvc := search.NewService()
+	searchHandler := search.NewHandler(searchSvc)
 
 
 	// Setup HTTP server and routes here, e.g., using net/http or a router like gorilla/mux
@@ -41,7 +45,11 @@ func main() {
 	}).Methods("GET","OPTIONS")
 
 	r.HandleFunc("/api/intent", intentHandler.HandleIntent).Methods("POST","OPTIONS")
+
+	r.HandleFunc("/api/search",searchHandler.HandleSearch).Methods("POST", "OPTIONS")
 	
+	
+
 	srv := &http.Server{
 		Addr: ":"+ cfg.Port,
 		Handler: r,
