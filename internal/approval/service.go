@@ -1,6 +1,7 @@
 package approval
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"time"
@@ -27,7 +28,7 @@ func NewService(database *gorm.DB, sendGridAPIKey, fromEmail, approverEmail stri
 	}
 }
 
-func (s *Service) CreateApprovalRequest(req *SubmitRequest) (*SubmitResponse, error) {
+func (s *Service) CreateApprovalRequest(req *SubmitRequest, ctx context.Context) (*SubmitResponse, error) {
 	// Parse dates
 	dateFrom, err := time.Parse("2006-01-02", req.DateFrom)
 	if err != nil {
@@ -56,7 +57,7 @@ func (s *Service) CreateApprovalRequest(req *SubmitRequest) (*SubmitResponse, er
 		Status:      "PENDING",
 	}
 
-	if err := s.db.Create(&approvalReq).Error; err != nil {
+	if err := s.db.WithContext(ctx).Create(&approvalReq).Error; err != nil {
 		return nil, fmt.Errorf("failed to create approval request: %w", err)
 	}
 

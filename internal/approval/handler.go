@@ -27,6 +27,8 @@ func (h *Handler) HandleApprovalRequest(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
+	ctx := r.Context();
+
 	// Validate request
 	if err := h.validator.Struct(&req); err != nil {
 		validationErrors := err.(validator.ValidationErrors)
@@ -36,7 +38,7 @@ func (h *Handler) HandleApprovalRequest(w http.ResponseWriter, r *http.Request) 
 	}
 
 	// Create approval request
-	response, err := h.svc.CreateApprovalRequest(&req)
+	response, err := h.svc.CreateApprovalRequest(&req, ctx)
 	if err != nil {
 		middleware.RespondError(w, http.StatusInternalServerError, "Failed to create approval request")
 		return
