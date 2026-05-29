@@ -71,6 +71,8 @@ PURPOSE RULES:
  purpose = "Business Travel"
 Today's date is:
 %s
+And Today is :
+%s
 Return EXACTLY this JSON format:
 {
 "source":"",
@@ -81,7 +83,7 @@ Return EXACTLY this JSON format:
 }
 USER INPUT:
 "%s"
-`, time.Now().Local().Format("2006-01-02"), text)
+`, time.Now().Local().Format("2006-01-02"), time.Now().Local().Weekday(), text)
 
 	log.Print(prompt)
 

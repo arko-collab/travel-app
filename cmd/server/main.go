@@ -39,11 +39,13 @@ func main() {
 	}
 
 	// Initialize services and handlers
-	intentSvc := intent.NewService(cfg.GeminiAPIKey)
-	intentHandler := intent.NewHandler(intentSvc)
-
 	searchSvc := search.NewService()
 	searchHandler := search.NewHandler(searchSvc)
+
+	intentSvc := intent.NewService(cfg.GeminiAPIKey)
+	intentHandler := intent.NewHandler(intentSvc,searchSvc)
+
+	
 
 	approvalSvc := approval.NewService(dbCli, cfg.SendGridAPIKey, cfg.SendGridFrom, cfg.ApproverEmail)
 	approvalHandler := approval.NewHandler(approvalSvc)
